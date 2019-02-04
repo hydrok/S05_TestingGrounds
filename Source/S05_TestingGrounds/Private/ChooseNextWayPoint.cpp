@@ -8,6 +8,6 @@ EBTNodeResult::Type UChooseNextWayPoint::ExecuteTask(UBehaviorTreeComponent& Own
 
 	auto BlackBoardComp = OwnerComp.GetBlackboardComponent(); //get the blackboard component
 	auto Index = BlackBoardComp->GetValueAsInt(IndexKey.SelectedKeyName); //get the name of the variable (key) that is linked
-		//to index in the blackboard
+		//to index in the blackboard and then get its value as int.
 	return EBTNodeResult::Succeeded;
 }
