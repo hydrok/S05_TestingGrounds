@@ -3,17 +3,25 @@
 #include "ChooseNextWayPoint.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "AIController.h"
-#include "PatrollingGuard.h"
+#include "PatrolRoute.h"
 
 EBTNodeResult::Type UChooseNextWayPoint::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	//Get Patrol Points
 	auto AIController = OwnerComp.GetAIOwner();
 	auto ControlledPawn = AIController->GetPawn();
-	auto PatrollingGuard = Cast<APatrollingGuard>(ControlledPawn);
-	auto PatrolPoints = PatrollingGuard->PatrolPointsCPP;
+	auto PatrolRoute = ControlledPawn->FindComponentByClass<UPatrolRoute>();
 
-	//Set next wapyoint
+	if (!ensure(PatrolRoute)) {  return EBTNodeResult::Failed;  }
+
+	auto PatrolPoints = PatrolRoute->GetPatrolPoints();
+	if (PatrolPoints.Num() == 0) 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("A guard is missing patrol points"))  
+		return EBTNodeResult::Failed;
+	}
+
+	//Set next waypoint
 	auto BlackBoardComp = OwnerComp.GetBlackboardComponent(); //get the blackboard component
 	auto Index = BlackBoardComp->GetValueAsInt(IndexKey.SelectedKeyName); //get the name of the variable (key) that is linked
 		//to index in the blackboard and then get its value as int.
