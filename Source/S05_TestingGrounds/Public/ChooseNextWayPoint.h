@@ -20,4 +20,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Blackboard")
 	struct FBlackboardKeySelector IndexKey; //create a property to be selected in the behaviour tree so we can choose 
 		//the index from which to read.
+
+	UPROPERTY(EditAnywhere, Category = "Blackboard")
+	struct FBlackboardKeySelector WayPointKey;
 };
