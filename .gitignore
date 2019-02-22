@@ -13,3 +13,6 @@ Saved
 *.xcodeproj
 *.xcworkspace
 Content/Dynamic/Levels/FirstPersonExampleMap_BuiltData.uasset
+Content/Static/TestingGroundPack/GrassPack/Materials/grass2.uasset
+Content/Static/TestingGroundPack/GrassPack/Materials/grass.uasset
+Content/Static/TestingGroundPack/
