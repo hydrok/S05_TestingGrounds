@@ -8,7 +8,6 @@ ATile::ATile()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int MinSpawn, int MaxSpawn, float Radius, float MinScale, float MaxScale) {
@@ -16,11 +15,11 @@ void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int MinSpawn, int MaxSpawn,
 	for (size_t i = 0; i < NumberToSpawn; i++)
 	{
 		FVector SpawnPoint;
-		float RandScale = FMath::RandRange(MinScale, MaxScale);
-		bool found = FindEmptyLocation(SpawnPoint, Radius * RandScale);
+		float RandomScale = FMath::RandRange(MinScale, MaxScale);
+		bool found = FindEmptyLocation(SpawnPoint, Radius * RandomScale);
 		if (found) {
-			float RandRotation = FMath::RandRange(-180.f, 180.f);
-			PlaceActor(ToSpawn, SpawnPoint, RandRotation, RandScale);
+			float RandomRotation = FMath::RandRange(-180.f, 180.f);
+			PlaceActor(ToSpawn, SpawnPoint, RandomRotation, RandomScale);
 		}
 	}
 }
@@ -75,6 +74,5 @@ bool ATile::CanSpawnAtLocation(FVector Location, float Radius)
 		ECollisionChannel::ECC_GameTraceChannel2,
 		FCollisionShape::MakeSphere(Radius)
 	);
-
 	return !HasHit;
 }
