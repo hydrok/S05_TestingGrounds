@@ -29,6 +29,18 @@ void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int MinSpawn, int MaxSpawn,
 void ATile::SetPool(UActorPool * InPool)
 {
 	Pool = InPool;
+
+	PositionNavMeshBoundsVolume();
+}
+
+void ATile::PositionNavMeshBoundsVolume()
+{
+	NavMeshBoundsVolume = Pool->Checkout();
+	if (NavMeshBoundsVolume == nullptr)
+	{
+		return;
+	}
+	NavMeshBoundsVolume->SetActorLocation(GetActorLocation());
 }
 
 bool ATile::FindEmptyLocation(FVector& OutLocation, float Radius) {
@@ -60,6 +72,13 @@ void ATile::PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint, float Ro
 void ATile::BeginPlay()
 {
 	Super::BeginPlay();
+
+}
+
+void ATile::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+	Pool->Return(NavMeshBoundsVolume);
 
 }
 

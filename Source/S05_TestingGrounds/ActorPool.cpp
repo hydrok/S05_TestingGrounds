@@ -19,10 +19,16 @@ AActor* UActorPool::Checkout()
 
 void UActorPool::Return(AActor* ActorToReturn)
 {
-
+	if (ActorToReturn == nullptr)
+	{
+		return;
+	}
 }
 
 void UActorPool::Add(AActor* ActorToAdd)
 {
-
+	if (ActorToAdd == nullptr)
+	{
+		return;
+	}
 }
